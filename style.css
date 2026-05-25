@@ -1,0 +1,106 @@
+body {
+
+    margin: 0;
+
+    padding: 0;
+
+    background: #0f172a;
+
+    color: white;
+
+    font-family: Arial;
+}
+
+.container {
+
+    width: 90%;
+
+    margin: auto;
+
+    padding: 20px;
+}
+
+h1 {
+
+    text-align: center;
+
+    margin-bottom: 30px;
+
+    color: #38bdf8;
+}
+
+.card {
+
+    background: #1e293b;
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+
+    border-radius: 10px;
+
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+}
+
+h2 {
+
+    margin-top: 0;
+
+    color: #facc15;
+}
+
+#onlineUsers li {
+
+    margin-bottom: 8px;
+}
+
+.request {
+
+    background: #334155;
+
+    padding: 15px;
+
+    margin-bottom: 10px;
+
+    border-radius: 8px;
+}
+
+button {
+
+    padding: 8px 15px;
+
+    margin-right: 10px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+.approve {
+
+    background: green;
+
+    color: white;
+}
+
+.reject {
+
+    background: red;
+
+    color: white;
+}
+
+.message {
+
+    background: #334155;
+
+    padding: 10px;
+
+    margin-bottom: 10px;
+
+    border-radius: 6px;
+}
