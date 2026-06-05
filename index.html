@@ -24,9 +24,7 @@
         <!-- ONLINE USERS -->
         <div class="card">
 
-            <h2>
-                Online Users
-            </h2>
+            <h2>Online Users</h2>
 
             <ul id="onlineUsers"></ul>
 
@@ -35,9 +33,7 @@
         <!-- ACTIVE CONNECTIONS -->
         <div class="card">
 
-            <h2>
-                Active Connections
-            </h2>
+            <h2>Active Connections</h2>
 
             <div id="topology"></div>
 
@@ -46,9 +42,7 @@
         <!-- PENDING REQUESTS -->
         <div class="card">
 
-            <h2>
-                Pending Requests
-            </h2>
+            <h2>Pending Requests</h2>
 
             <div id="requests"></div>
 
@@ -57,11 +51,49 @@
         <!-- LIVE COMMUNICATION -->
         <div class="card">
 
-            <h2>
-                Live Communication Monitor
-            </h2>
+            <h2>Live Communication Monitor</h2>
 
             <div id="messages"></div>
+
+        </div>
+
+        <!-- VEHICLE REGISTRY -->
+        <div class="card">
+
+            <h2>Vehicle Registry</h2>
+
+            <div class="stats">
+
+                Total Vehicles:
+                <span id="vehicleCount">0</span>
+
+            </div>
+
+            <input
+                type="text"
+                id="vin"
+                placeholder="VIN"
+            >
+
+            <input
+                type="text"
+                id="vehicleName"
+                placeholder="Vehicle Name"
+            >
+
+            <button
+                onclick="registerVehicle()"
+            >
+                Register Vehicle
+            </button>
+
+            <button
+                onclick="loadVehicles()"
+            >
+                Refresh Vehicles
+            </button>
+
+            <div id="vehicleTable"></div>
 
         </div>
 

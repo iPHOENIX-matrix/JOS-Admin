@@ -1,3 +1,6 @@
+const API_BASE =
+    "https://jos-server.onrender.com";
+
 const socket = new WebSocket(
     "wss://jos-server.onrender.com/ws"
 );
@@ -14,6 +17,8 @@ socket.onopen = function () {
 
         type: "admin_register"
     }));
+
+    loadVehicles();
 };
 
 // =====================================
@@ -24,9 +29,6 @@ socket.onmessage = function (event) {
 
     const data = JSON.parse(event.data);
 
-    // =================================
-    // TOPOLOGY UPDATE
-    // =================================
     if (data.type === "topology_update") {
 
         renderOnlineUsers(
@@ -38,9 +40,6 @@ socket.onmessage = function (event) {
         );
     }
 
-    // =================================
-    // APPROVAL REQUEST
-    // =================================
     else if (
         data.type === "approval_request"
     ) {
@@ -48,9 +47,6 @@ socket.onmessage = function (event) {
         renderRequest(data);
     }
 
-    // =================================
-    // LIVE MESSAGE
-    // =================================
     else if (
         data.type === "admin_message"
     ) {
@@ -58,6 +54,132 @@ socket.onmessage = function (event) {
         renderMessage(data);
     }
 };
+
+// =====================================
+// VEHICLE REGISTRY
+// =====================================
+
+async function registerVehicle() {
+
+    const vin =
+        document.getElementById(
+            "vin"
+        ).value;
+
+    const vehicleName =
+        document.getElementById(
+            "vehicleName"
+        ).value;
+
+    if (!vin || !vehicleName) {
+
+        alert(
+            "VIN and Vehicle Name required"
+        );
+
+        return;
+    }
+
+    const response =
+        await fetch(
+            `${API_BASE}/vehicle/register`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+                body: JSON.stringify({
+
+                    vin: vin,
+
+                    vehicle_name:
+                        vehicleName
+                })
+            }
+        );
+
+    const result =
+        await response.json();
+
+    alert(
+        JSON.stringify(result)
+    );
+
+    loadVehicles();
+}
+
+async function loadVehicles() {
+
+    const response =
+        await fetch(
+            `${API_BASE}/vehicles`
+        );
+
+    const vehicles =
+        await response.json();
+
+    renderVehicles(
+        vehicles
+    );
+}
+
+function renderVehicles(
+    vehicles
+) {
+
+    document.getElementById(
+        "vehicleCount"
+    ).innerText =
+        vehicles.length;
+
+    const table =
+        document.getElementById(
+            "vehicleTable"
+        );
+
+    table.innerHTML = `
+
+        <table>
+
+            <tr>
+
+                <th>VIN</th>
+
+                <th>Name</th>
+
+                <th>Version</th>
+
+                <th>Status</th>
+
+            </tr>
+
+        </table>
+
+    `;
+
+    const tableElement =
+        table.querySelector("table");
+
+    vehicles.forEach(vehicle => {
+
+        tableElement.innerHTML += `
+
+            <tr>
+
+                <td>${vehicle[0]}</td>
+
+                <td>${vehicle[1]}</td>
+
+                <td>${vehicle[2]}</td>
+
+                <td>${vehicle[4]}</td>
+
+            </tr>
+
+        `;
+    });
+}
 
 // =====================================
 // ONLINE USERS
@@ -166,7 +288,9 @@ function renderRequest(data) {
         </button>
     `;
 
-    requests.appendChild(requestDiv);
+    requests.appendChild(
+        requestDiv
+    );
 }
 
 // =====================================
@@ -199,7 +323,7 @@ function approveRequest(
 }
 
 // =====================================
-// LIVE MESSAGES
+// LIVE MESSAGE
 // =====================================
 
 function renderMessage(data) {

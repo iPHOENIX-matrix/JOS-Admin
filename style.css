@@ -104,3 +104,49 @@ button {
 
     border-radius: 6px;
 }
+
+input {
+
+    width: 100%;
+
+    padding: 10px;
+
+    margin-bottom: 10px;
+
+    border-radius: 6px;
+
+    border: none;
+}
+
+table {
+
+    width: 100%;
+
+    margin-top: 20px;
+
+    border-collapse: collapse;
+}
+
+th,
+td {
+
+    border: 1px solid #475569;
+
+    padding: 10px;
+
+    text-align: left;
+}
+
+th {
+
+    background: #334155;
+}
+
+.stats {
+
+    margin-bottom: 15px;
+
+    font-weight: bold;
+
+    color: #38bdf8;
+}
