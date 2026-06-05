@@ -118,6 +118,45 @@ async function registerVehicle() {
     loadVehicles();
 }
 
+async function deleteVehicle(vin) {
+
+    const confirmDelete =
+        confirm(
+            `Delete Vehicle ${vin}?`
+        );
+
+    if (!confirmDelete) {
+
+        return;
+    }
+
+    const response =
+        await fetch(
+            `${API_BASE}/vehicle/${vin}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+    const result =
+        await response.json();
+
+    if (result.success) {
+
+        alert(
+            "✅ Vehicle Deleted Successfully"
+        );
+
+        loadVehicles();
+
+    } else {
+
+        alert(
+            "❌ Failed To Delete Vehicle"
+        );
+    }
+}
+
 async function loadVehicles() {
 
     const response =
@@ -153,6 +192,7 @@ function renderVehicles(vehicles) {
                 <th>Name</th>
                 <th>Version</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
 
         </table>
@@ -175,6 +215,19 @@ function renderVehicles(vehicles) {
                 <td>${vehicle.current_version}</td>
 
                 <td>${vehicle.status}</td>
+
+                <td>
+
+                    <button
+                        class="delete-btn"
+                        onclick="deleteVehicle(
+                            '${vehicle.vin}'
+                        )"
+                    >
+                        Delete
+                    </button>
+
+                </td>
 
             </tr>
 

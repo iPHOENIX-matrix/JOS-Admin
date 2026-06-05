@@ -150,3 +150,15 @@ th {
 
     color: #38bdf8;
 }
+
+.delete-btn {
+
+    background: #dc2626;
+
+    color: white;
+}
+
+.delete-btn:hover {
+
+    background: #991b1b;
+}
