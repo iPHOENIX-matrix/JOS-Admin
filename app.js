@@ -102,9 +102,18 @@ async function registerVehicle() {
     const result =
         await response.json();
 
-    alert(
-        JSON.stringify(result)
-    );
+    if (result.success) {
+
+        alert(
+            "✅ Vehicle Registered Successfully"
+        );
+
+    } else {
+
+        alert(
+            "❌ Vehicle Registration Failed"
+        );
+    }
 
     loadVehicles();
 }
@@ -124,14 +133,11 @@ async function loadVehicles() {
     );
 }
 
-function renderVehicles(
-    vehicles
-) {
+function renderVehicles(vehicles) {
 
     document.getElementById(
         "vehicleCount"
-    ).innerText =
-        vehicles.length;
+    ).innerText = vehicles.length;
 
     const table =
         document.getElementById(
@@ -143,15 +149,10 @@ function renderVehicles(
         <table>
 
             <tr>
-
                 <th>VIN</th>
-
                 <th>Name</th>
-
                 <th>Version</th>
-
                 <th>Status</th>
-
             </tr>
 
         </table>
@@ -167,13 +168,13 @@ function renderVehicles(
 
             <tr>
 
-                <td>${vehicle[0]}</td>
+                <td>${vehicle.vin}</td>
 
-                <td>${vehicle[1]}</td>
+                <td>${vehicle.vehicle_name}</td>
 
-                <td>${vehicle[2]}</td>
+                <td>${vehicle.current_version}</td>
 
-                <td>${vehicle[4]}</td>
+                <td>${vehicle.status}</td>
 
             </tr>
 
