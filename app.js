@@ -59,12 +59,22 @@ socket.onmessage = function (event) {
     }
 
     else if (
-        data.type ===
-        "admin_message"
-    ) {
+    data.type === "admin_message"
+) {
 
-        renderMessage(data);
-    }
+    renderMessage(data);
+}
+
+else if (
+    data.type === "heartbeat"
+) {
+
+    renderHeartbeat(
+        data
+    );
+
+    loadVehicles();
+}
 
     else if (
         data.type ===
@@ -516,4 +526,34 @@ function renderMessage(data) {
 
     messages.scrollTop =
         messages.scrollHeight;
+}
+
+// =====================================
+// HEARTBEAT MONITOR
+// =====================================
+
+function renderHeartbeat(data) {
+
+    const monitor =
+        document.getElementById(
+            "heartbeatMonitor"
+        );
+
+    const timestamp =
+        new Date()
+        .toLocaleTimeString();
+
+    monitor.innerHTML = `
+
+        <div class="message">
+
+            [${timestamp}]
+
+            ${data.vin}
+
+            Heartbeat Received
+
+        </div>
+
+    ` + monitor.innerHTML;
 }
