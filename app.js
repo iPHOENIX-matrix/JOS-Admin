@@ -76,6 +76,15 @@ else if (
     loadVehicles();
 }
 
+else if (
+    data.type === "terminal_log"
+) {
+
+    renderTerminalLog(
+        data
+    );
+}
+
     else if (
         data.type ===
         "heartbeat_event"
@@ -556,4 +565,34 @@ function renderHeartbeat(data) {
         </div>
 
     ` + monitor.innerHTML;
+}
+
+// =====================================
+// TERMINAL LOG
+// =====================================
+
+function renderTerminalLog(data) {
+
+    const terminal =
+        document.getElementById(
+            "terminal"
+        );
+
+    const timestamp =
+        new Date()
+        .toLocaleTimeString();
+
+    terminal.innerHTML += `
+
+        <div>
+
+            [${timestamp}]
+            ${data.message}
+
+        </div>
+
+    `;
+
+    terminal.scrollTop =
+        terminal.scrollHeight;
 }
