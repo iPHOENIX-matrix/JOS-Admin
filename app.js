@@ -19,6 +19,11 @@ socket.onopen = function () {
     }));
 
     loadVehicles();
+
+    setInterval(
+        loadVehicles,
+        5000
+    );
 };
 
 // =====================================
@@ -27,9 +32,14 @@ socket.onopen = function () {
 
 socket.onmessage = function (event) {
 
-    const data = JSON.parse(event.data);
+    const data = JSON.parse(
+        event.data
+    );
 
-    if (data.type === "topology_update") {
+    if (
+        data.type ===
+        "topology_update"
+    ) {
 
         renderOnlineUsers(
             data.online_users
@@ -41,19 +51,93 @@ socket.onmessage = function (event) {
     }
 
     else if (
-        data.type === "approval_request"
+        data.type ===
+        "approval_request"
     ) {
 
         renderRequest(data);
     }
 
     else if (
-        data.type === "admin_message"
+        data.type ===
+        "admin_message"
     ) {
 
         renderMessage(data);
     }
+
+    else if (
+        data.type ===
+        "heartbeat_event"
+    ) {
+
+        renderHeartbeat(
+            data.vin
+        );
+    }
+
+    else if (
+        data.type ===
+        "terminal_log"
+    ) {
+
+        renderTerminal(
+            data.message
+        );
+    }
 };
+
+// =====================================
+// HEARTBEAT PANEL
+// =====================================
+
+function renderHeartbeat(vin) {
+
+    const container =
+        document.getElementById(
+            "heartbeatContainer"
+        );
+
+    const timestamp =
+        new Date()
+        .toLocaleTimeString();
+
+    container.innerHTML =
+
+        `<div class="heartbeat-row">
+
+            [${timestamp}]
+            ${vin}
+            →
+            Heartbeat Received
+
+        </div>`
+
+        + container.innerHTML;
+}
+
+// =====================================
+// TERMINAL PANEL
+// =====================================
+
+function renderTerminal(message) {
+
+    const terminal =
+        document.getElementById(
+            "terminal"
+        );
+
+    const timestamp =
+        new Date()
+        .toLocaleTimeString();
+
+    terminal.innerHTML +=
+
+        `[${timestamp}] ${message}<br>`;
+
+    terminal.scrollTop =
+        terminal.scrollHeight;
+}
 
 // =====================================
 // VEHICLE REGISTRY
@@ -172,11 +256,14 @@ async function loadVehicles() {
     );
 }
 
-function renderVehicles(vehicles) {
+function renderVehicles(
+    vehicles
+) {
 
     document.getElementById(
         "vehicleCount"
-    ).innerText = vehicles.length;
+    ).innerText =
+        vehicles.length;
 
     const table =
         document.getElementById(
@@ -188,11 +275,21 @@ function renderVehicles(vehicles) {
         <table>
 
             <tr>
+
                 <th>VIN</th>
+
                 <th>Name</th>
+
                 <th>Version</th>
+
+                <th>Heartbeat</th>
+
+                <th>Last Seen</th>
+
                 <th>Status</th>
+
                 <th>Action</th>
+
             </tr>
 
         </table>
@@ -200,7 +297,9 @@ function renderVehicles(vehicles) {
     `;
 
     const tableElement =
-        table.querySelector("table");
+        table.querySelector(
+            "table"
+        );
 
     vehicles.forEach(vehicle => {
 
@@ -213,6 +312,10 @@ function renderVehicles(vehicles) {
                 <td>${vehicle.vehicle_name}</td>
 
                 <td>${vehicle.current_version}</td>
+
+                <td>${vehicle.heartbeat_count}</td>
+
+                <td>${vehicle.last_seen}</td>
 
                 <td>${vehicle.status}</td>
 
@@ -299,11 +402,15 @@ function renderRequest(data) {
         );
 
     const requestDiv =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
-    requestDiv.className = "request";
+    requestDiv.className =
+        "request";
 
-    requestDiv.id = data.request_id;
+    requestDiv.id =
+        data.request_id;
 
     requestDiv.innerHTML = `
 
@@ -360,9 +467,11 @@ function approveRequest(
 
         type: "admin_approval",
 
-        request_id: requestId,
+        request_id:
+            requestId,
 
-        approved: approved
+        approved:
+            approved
     }));
 
     const requestDiv =

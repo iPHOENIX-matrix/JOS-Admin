@@ -116,6 +116,8 @@ input {
     border-radius: 6px;
 
     border: none;
+
+    box-sizing: border-box;
 }
 
 table {
@@ -161,4 +163,134 @@ th {
 .delete-btn:hover {
 
     background: #991b1b;
+}
+
+/* ===================================== */
+/* HEARTBEAT MONITOR */
+/* ===================================== */
+
+#heartbeatContainer {
+
+    max-height: 250px;
+
+    overflow-y: auto;
+
+    background: #111827;
+
+    border-radius: 8px;
+
+    padding: 10px;
+}
+
+.heartbeat-row {
+
+    padding: 8px;
+
+    margin-bottom: 6px;
+
+    background: #065f46;
+
+    border-left: 4px solid #10b981;
+
+    border-radius: 4px;
+
+    font-family: monospace;
+}
+
+/* ===================================== */
+/* TERMINAL */
+/* ===================================== */
+
+#terminal {
+
+    background: #000000;
+
+    color: #00ff00;
+
+    font-family: Consolas,
+                 monospace;
+
+    height: 350px;
+
+    overflow-y: auto;
+
+    padding: 15px;
+
+    border-radius: 8px;
+
+    border: 1px solid #374151;
+
+    white-space: pre-wrap;
+
+    line-height: 1.6;
+}
+
+/* ===================================== */
+/* VEHICLE STATUS COLORS */
+/* ===================================== */
+
+.status-online {
+
+    color: #22c55e;
+
+    font-weight: bold;
+}
+
+.status-offline {
+
+    color: #ef4444;
+
+    font-weight: bold;
+}
+
+.status-registered {
+
+    color: #facc15;
+
+    font-weight: bold;
+}
+
+/* ===================================== */
+/* TABLE IMPROVEMENTS */
+/* ===================================== */
+
+tr:hover {
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.05
+    );
+}
+
+table {
+
+    font-size: 14px;
+}
+
+/* ===================================== */
+/* SCROLLBAR */
+/* ===================================== */
+
+::-webkit-scrollbar {
+
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+
+    background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+
+    background: #475569;
+
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+
+    background: #64748b;
 }
